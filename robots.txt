@@ -1,0 +1,4 @@
+Sitemap: http://www.privilege-properties.com/sitemap.xml
+ 
+User-agent: 008
+Disallow: /	
