@@ -2386,9 +2386,40 @@ span.email-notes {
   padding-top: 30px;
 }
 
+.single-team-member {
+  max-width: 320px;
+  text-align: center;
+}
+
+.team-img img {
+  border-radius: 10px;
+  transition: transform 0.3s ease;
+}
+
+.team-img img:hover {
+  transform: scale(1.05);
+}
+
+.team-social-icon ul {
+  margin-top: 10px;
+  padding: 0;
+}
+
+.team-social-icon i {
+  font-size: 18px;
+  color: #333;
+  transition: color 0.2s ease;
+}
+
+.team-social-icon i:hover {
+  color: #fe641e; /* Accent color */
+}
+
+
 /*GDPR Stuff*/
 .gdpr-area {margin-top: 1.5rem;}
 .gdpr-area .panel-group {margin-bottom: 0;}
 /*----------------------------------------
  .End CSS
 ----------------------------------------*/
+
