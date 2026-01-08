@@ -700,33 +700,71 @@ easier, laughter louder, cleaning times shorter and fun times longer
           </div>
           <!-- End Google Map -->
 
-          <!-- Start  contact -->
-          <div class="col-md-6 col-sm-6 col-xs-12">
-            <div class="form contact-form">
-              <div id="sendmessage">Your message has been sent. Thank you!</div>
-              <div id="errormessage"></div>
-              <form action="" method="post" role="form" class="contactForm">
-                <div class="form-group">
-                  <input type="text" name="name" class="form-control" id="name" placeholder="Your Name" data-rule="minlen:4" data-msg="Please enter at least 4 chars" />
-                  <div class="validation"></div>
-                </div>
-                <div class="form-group">
-                  <input type="email" class="form-control" name="email" id="email" placeholder="Your Email" data-rule="email" data-msg="Please enter a valid email" />
-                  <div class="validation"></div>
-                </div>
-                <div class="form-group">
-                  <input type="text" class="form-control" name="subject" id="subject" placeholder="Subject" data-rule="minlen:4" data-msg="Please enter at least 8 chars of subject" />
-                  <div class="validation"></div>
-                </div>
-                <div class="form-group">
-                  <textarea class="form-control" name="message" rows="5" data-rule="required" data-msg="Please write something for us" placeholder="Message"></textarea>
-                  <div class="validation"></div>
-                </div>
-                <div class="text-center"><button type="submit">Send Message</button></div>
-              </form>
-            </div>
-          </div>
-          <!-- End Left contact -->
+ 
+<!-- Start  contact -->
+<div class="col-md-6 col-sm-6 col-xs-12">
+  <div class="form contact-form">
+
+    <!-- Success / error placeholders (optional UI) -->
+    <div id="sendmessage" style="display:none;">Your message has been sent. Thank you!</div>
+    <div id="errormessage" style="display:none;"></div>
+
+    <!-- FormSubmit-powered form -->
+    https://formsubmit.co/enquiries@privilege-properties.com
+
+      <!-- FormSubmit options -->
+      <input type="hidden" name="_captcha" value="false">
+      <input type="hidden" name="_subject" value="New enquiry from Privilege Properties website">
+      <input type="hidden" name="_template" value="table">
+      <!-- Redirect to same page and show success message inline -->
+      <input type="hidden" name="_next" value="https://www.privilege-properties.com/#contact">
+
+      <!-- Honeypot (spam protection) -->
+      <input type="text" name="_honey" style="display:none">
+
+      <!-- Required user fields -->
+      <div class="form-group">
+        <input type="text" name="name" class="form-control" placeholder="Your Name" required>
+      </div>
+
+      <div class="form-group">
+        <input type="email" name="email" class="form-control" placeholder="Your Email" required>
+      </div>
+
+      <div class="form-group">
+        <input type="text" name="subject" class="form-control" placeholder="Subject" required>
+      </div>
+
+      <div class="form-group">
+        <textarea name="message" class="form-control" rows="5" placeholder="Message" required></textarea>
+      </div>
+
+      <div class="text-center">
+        <button type="submit">Send Message</button>
+      </div>
+    </form>
+
+    <!-- Optional: show success message if returned with ?success=1 -->
+    <script>
+      (function() {
+        try {
+          var params = new URLSearchParams(window.location.search);
+          var sent = document.getElementById('sendmessage');
+          var err = document.getElementById('errormessage');
+          if (params.has('success')) {
+            sent && (sent.style.display = 'block');
+          } else if (params.has('error')) {
+            err && (err.style.display = 'block');
+            err.textContent = 'Sorry, something went wrong. Please try again.';
+          }
+        } catch (e) {}
+      })();
+    </script>
+
+  </div>
+</div>
+<!-- End Left contact -->
+
         </div>
       </div>
     </div>
@@ -973,8 +1011,6 @@ enquiries@privilege-properties.com
   <script src="lib/appear/jquery.appear.js"></script>
   <script src="lib/isotope/isotope.pkgd.min.js"></script>
 
-  <!-- Contact Form JavaScript File -->
-  <script src="contactform/contactform.js"></script>
 
   <script src="js/main.js"></script>
     
