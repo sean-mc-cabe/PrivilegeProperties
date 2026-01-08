@@ -701,28 +701,31 @@ easier, laughter louder, cleaning times shorter and fun times longer
           <!-- End Google Map -->
 
  
+
+
+
 <!-- Start  contact -->
 <div class="col-md-6 col-sm-6 col-xs-12">
   <div class="form contact-form">
 
-    <!-- Success / error placeholders (optional UI) -->
+    <!-- Success / error placeholders -->
     <div id="sendmessage" style="display:none;">Your message has been sent. Thank you!</div>
     <div id="errormessage" style="display:none;"></div>
 
-    <!-- FormSubmit-powered form -->
-    https://formsubmit.co/enquiries@privilege-properties.com
-
-      <!-- FormSubmit options -->
-      <input type="hidden" name="_captcha" value="false">
+    <!-- Correct FormSubmit form START -->
+    <form action="https://formsubmit.co/enquiries@privilege-properties.com"
+          method="POST"
+         type="hidden" name="_captcha" value="false">
       <input type="hidden" name="_subject" value="New enquiry from Privilege Properties website">
       <input type="hidden" name="_template" value="table">
-      <!-- Redirect to same page and show success message inline -->
+
+      <!-- Redirect back to contact section -->
       <input type="hidden" name="_next" value="https://www.privilege-properties.com/#contact">
 
-      <!-- Honeypot (spam protection) -->
+      <!-- Honeypot -->
       <input type="text" name="_honey" style="display:none">
 
-      <!-- Required user fields -->
+      <!-- Required fields -->
       <div class="form-group">
         <input type="text" name="name" class="form-control" placeholder="Your Name" required>
       </div>
@@ -736,34 +739,16 @@ easier, laughter louder, cleaning times shorter and fun times longer
       </div>
 
       <div class="form-group">
-        <textarea name="message" class="form-control" rows="5" placeholder="Message" required></textarea>
-      </div>
-
-      <div class="text-center">
-        <button type="submit">Send Message</button>
-      </div>
-    </form>
-
-    <!-- Optional: show success message if returned with ?success=1 -->
-    <script>
-      (function() {
-        try {
-          var params = new URLSearchParams(window.location.search);
-          var sent = document.getElementById('sendmessage');
-          var err = document.getElementById('errormessage');
-          if (params.has('success')) {
-            sent && (sent.style.display = 'block');
-          } else if (params.has('error')) {
-            err && (err.style.display = 'block');
-            err.textContent = 'Sorry, something went wrong. Please try again.';
-          }
-        } catch (e) {}
+        <) {}
       })();
     </script>
 
   </div>
 </div>
 <!-- End Left contact -->
+
+
+
 
         </div>
       </div>
