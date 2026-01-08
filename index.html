@@ -689,38 +689,117 @@ We are happy to discuss all aspects of a prospective move and, in addition, very
           </div>
           <!-- End Google Map -->
 
-          <!-- Start  contact -->
-          <div class="col-md-6 col-sm-6 col-xs-12">
-            <div class="form contact-form">
-              <div id="sendmessage">Your message has been sent. Thank you!</div>
-              <div id="errormessage"></div>
-              <form action="" method="post" role="form" class="contactForm">
-                <div class="form-group">
-                  <input type="text" name="name" class="form-control" id="name" placeholder="Your Name" data-rule="minlen:4" data-msg="Please enter at least 4 chars" />
-                  <div class="validation"></div>
-                </div>
-                <div class="form-group">
-                  <input type="email" class="form-control" name="email" id="email" placeholder="Your Email" data-rule="email" data-msg="Please enter a valid email" />
-                  <div class="validation"></div>
-                </div>
-                <div class="form-group">
-                  <input type="text" class="form-control" name="subject" id="subject" placeholder="Subject" data-rule="minlen:4" data-msg="Please enter at least 8 chars of subject" />
-                  <div class="validation"></div>
-                </div>
-                <div class="form-group">
-                  <textarea class="form-control" name="message" rows="5" data-rule="required" data-msg="Please write something for us" placeholder="Message"></textarea>
-                  <div class="validation"></div>
-                </div>
-                <div class="text-center"><button type="submit">Send Message</button></div>
-              </form>
-            </div>
-          </div>
-          <!-- End Left contact -->
-        </div>
-      </div>
+         
+<!-- Start  contact -->
+<div class="col-md-6 col-sm-6 col-xs-12">
+  <div class="form contact-form">
+    <!-- Success / error messages (hidden by default) -->
+    <div id="sendmessage" style="display:none;" aria-live="polite">
+      Your message has been sent. Thank you!
     </div>
+    <div id="errormessage" style="display:none;" aria-live="assertive"></div>
+
+    <!-- Contact form -->
+    <form
+      id="contactForm"
+      action="https://api.staticforms.dev/submit"
+      method="POST"
+     hidden" name="apiKey" value="sf_kflmib8d2mgg8c0n2gjb5j4d">
+
+      <!-- Optional: make replies go to the sender's email (supported by StaticForms) -->
+      <!-- <input type="hidden" name="replyTo" value="@"> -->
+
+      <!-- Optional: if you prefer a thank-you page instead of inline messages -->
+      <!-- <input type="hidden" name="redirectTo" value="https://yourdomain/thank-you.html"> -->
+
+      <div class="form-group">
+        <input
+          type="text" name="name" class="form-control" id="name"
+          placeholder="Your Name"
+          required minlength="4"
+          data-rule="minlen:4" data-msg="Please enter at least 4 chars"
+        />
+        <div class="validation"></div>
+      </div>
+
+      <div class="form-group">
+        <input
+          type="email" class="form-control" name="email" id="email"
+          placeholder="Your Email" required
+          data-rule="email" data-msg="Please enter a valid email"
+        />
+        <div class="validation"></div>
+      </div>
+
+      <div class="form-group">
+        <input
+          type="text" class="form-control" name="subject" id="subject"
+          placeholder="Subject" required minlength="8"
+          data-rule="minlen:8" data-msg="Please enter at least 8 chars of subject"
+        />
+        <div class="validation"></div>
+      </div>
+
+      <div class="form-group">
+        <textarea
+          class="form-control" name="message" rows="5"
+          placeholder="Message" required
+          data-rule="required" data-msg="Please write something for us"
+        ></textarea>
+        <div class="validation"></div>
+      </div>
+
+      <!-- Honeypot anti‑spam (keep hidden) -->
+      <input type="text" name="honeypot" tabindex="-1" autocomplete="off"
+             style="position:absolute; left:-9999px; opacity:0;" aria-hidden="true">
+
+      <div class="text-center"><button type="submit">Send Message</button></div>
+    </form>
   </div>
-  <!-- End Contact Area -->
+</div>
+<!-- End Left contact -->
+
+<!-- Minimal JS: submit via fetch to keep user on the page -->
+<script>
+(function () {
+  const form = document.getElementById('contactForm');
+  const sendMsg = document.getElementById('sendmessage');
+  const errMsg  = document.getElementById('errormessage');
+
+  const show = (el, text) => { if (text !== undefined) el.textContent = text; el.style.display = 'block'; };
+  const hide = (el) => { el.style.display = 'none'; };
+
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    hide(sendMsg); hide(errMsg);
+
+    // Guard with native HTML5 validation
+    if (!form.checkValidity()) {
+      show(errMsg, 'Please check the highlighted fields and try again.');
+      return;
+    }
+
+    const data = new FormData(form);
+
+    try {
+      const res = await fetch(form.action, { method: 'POST', body: data });
+      const json = await res.json().catch(() => ({}));
+
+      if (res.ok && json.success !== false) {
+        form.reset();
+        show(sendMsg);
+      } else {
+        const msg = (json && json.message) ? json.message : 'Error sending your message. Please try again.';
+        show(errMsg, msg);
+      }
+    } catch (err) {
+      show(errMsg, 'Network error. Please try again later.');
+    }
+  });
+})();
+</script>
+``
+
     
 
   <!-- Start Footer bottom Area -->
@@ -962,8 +1041,6 @@ enquiries@privilege-properties.com
   <script src="lib/appear/jquery.appear.js"></script>
   <script src="lib/isotope/isotope.pkgd.min.js"></script>
 
-  <!-- Contact Form JavaScript File -->
-  <script src="contactform/contactform.js"></script>
 
   <script src="js/main.js"></script>
     
